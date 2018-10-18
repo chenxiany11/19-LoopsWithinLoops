@@ -80,11 +80,51 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    color = circle.fill_color
+    radius = circle.radius
+    x1 = circle.center.x
+    y1 = circle.center.y
+
+    # column part
     for k in range(r):
-        circle.clone()
+        x = x1
+        y = y1
+        for i in range(3):
+            print('*', end='')
+            center = rg.Point(x, y+(k*2*radius))
+            circle2 = rg.Circle(center, radius)
+            circle2.fill_color = color
+            circle2.attach_to(window)
+            window.render(0.1)
+            x += 2 * radius
+
+    # corner part
+    for k in range(3):
+        x = x1
+        y = y1 + (r * 2 * radius)
+        for i in range(3):
+            center = rg.Point(x, y + (k*2*radius))
+            circle2 = rg.Circle(center, radius)
+            circle2.fill_color = color
+            circle2.attach_to(window)
+            window.render(0.1)
+            x += 2 * radius
+
+    # row part
+    for k in range(3):
+        x = x1 + (6 * radius)
+        y = y1 + (r * 2 * radius)
+        for j in range(c):
+            center = rg.Point(x, y + (k * 2 * radius))
+            circle2 = rg.Circle(center, radius)
+            circle2.fill_color = color
+            circle2.attach_to(window)
+            window.render(0.1)
+            x += 2 * radius
 
 
 def run_test_draw_wall_on_right():
@@ -123,12 +163,33 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    ur_c = rectangle.get_upper_right_corner()
+    ll_c = rectangle.get_lower_left_corner()
+    height = rectangle.get_height()
+    width = rectangle.get_width()
+    x1 = ur_c.x
+    y1 = ur_c.y
+    x2 = ll_c.x
+    y2 = ll_c.y
 
+    for k in range(n):
+        xx1 = x1
+        yy1 = y1
+        xx2 = x2
+        yy2 = y2
+        for i in range(k):
+            ur2 = rg.Point(xx1-(width*i), yy1+(k*height))
+            ll2 = rg.Point(xx2-(width*i), yy2+(k*height))
+            rectangle2 = rg.Rectangle(ur2, ll2)
+            rectangle2.attach_to(window)
+            window.render(0.1)
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
+
 main()
